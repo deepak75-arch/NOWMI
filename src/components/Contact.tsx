@@ -29,25 +29,25 @@ const Contact: React.FC = () => {
     {
       icon: MapPin,
       title: "Visit Our Salon",
-      details: ["Shop No. 8, Ground Floor, Tech Park Avenue", "Old Mahabalipuram Road (OMR)", "Sholinganallur, Chennai – 600119"],
-      link: "#"
+      details: ["Shop No. 8, Ground Floor, Tech Park Avenue", "OMR, Sholinganallur, Chennai - 600119"],
+      link: "https://maps.google.com/?q=NOWMI+OMR+Sholinganallur" // Example link
     },
     {
       icon: Phone,
-      title: "Call Us",
-      details: ["+91-44-1234-5678", "+91-98765-43210"],
-      link: "tel:+914412345678"
+      title: "Call / WhatsApp",
+      details: ["+91-44-1234-5678"],
+      link: "https://wa.me/914412345678"
     },
     {
       icon: Mail,
       title: "Email Us",
-      details: ["omr@nowmi.in", "contact@nowmionnr.com"],
+      details: ["omr@nowmi.in", "contact@nowmiomr.com"],
       link: "mailto:omr@nowmi.in"
     },
     {
       icon: Clock,
       title: "Opening Hours",
-      details: ["Monday-Saturday: 9:00 AM – 9:00 PM", "Sunday: 10:00 AM – 7:00 PM"],
+      details: ["Mon-Sat: 9:00 AM – 9:00 PM", "Sunday: 10:00 AM – 7:00 PM"],
       link: "#"
     }
   ]
@@ -127,9 +127,11 @@ const Contact: React.FC = () => {
                     {item.link !== "#" && (
                       <a
                         href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-gold-600 hover:text-gold-700 font-medium text-sm transition-colors"
                       >
-                        Click to {item.title.toLowerCase()}
+                        {item.title === "Call / WhatsApp" ? "Book via WhatsApp" : "Get in touch"}
                       </a>
                     )}
                   </div>
@@ -145,12 +147,17 @@ const Contact: React.FC = () => {
               transition={{ delay: 0.5, duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="h-48 bg-gradient-to-br from-slate-900 to-purple-900 flex items-center justify-center">
-                <MapPin size={48} className="text-white opacity-50" />
-              </div>
-              <div className="p-4 text-center">
-                <p className="text-slate-600">Interactive map showing our location in OMR, Chennai</p>
-              </div>
+              {/* You can embed a Google Map here */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.110507797745!2d80.2206776152382!3d12.96472899086046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d8d6f9f2d5b%3A0x6b6045a85f4efe9a!2sSholinganallur%2C%20Chennai%2C%20Tamil%20Nadu%20600119!5e0!3m2!1sen!2sin!4v1678886555123!5m2!1sen!2sin"
+                width="100%"
+                height="250"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="NOWMI OMR Location"
+              ></iframe>
             </motion.div>
           </motion.div>
 
