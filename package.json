@@ -17,13 +17,14 @@
     "@emotion/react": "^11.14.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
-    "clsx": "^2.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.288.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.5.3",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",

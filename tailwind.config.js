@@ -52,39 +52,15 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Adding the custom colors your components are using
-        slate: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-        },
-        gold: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24', // Your 'bg-gold-400'
-          500: '#f59e0b', // Your 'bg-gold-500'
-          600: '#d97706', // Your 'bg-gold-600'
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
-        },
-        purple: {
-          900: '#4a044e', // Your 'via-purple-900'
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+        display: ["Montserrat", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

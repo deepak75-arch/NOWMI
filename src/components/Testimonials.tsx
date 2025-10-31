@@ -1,6 +1,6 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Star, Quote } from 'lucide-react'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Star, Quote, User } from 'lucide-react';
 
 const Testimonials: React.FC = () => {
   const testimonials = [
@@ -9,42 +9,36 @@ const Testimonials: React.FC = () => {
       role: "Software Engineer",
       rating: 5,
       text: "NOWMI OMR has completely transformed my grooming experience. The attention to detail and professional service is unmatched in Chennai. My hair has never looked better!",
-      avatar: "A"
     },
     {
       name: "Priya Sharma",
       role: "Marketing Manager",
       rating: 5,
       text: "I brought my mother here for a facial and we were both blown away by the exceptional care. The staff is incredibly professional and the ambiance is so relaxing.",
-      avatar: "P"
     },
     {
       name: "Rahul Kumar",
       role: "Entrepreneur",
       rating: 5,
-      text: "The spa treatment felt like a mini vacation in the middle of the city. Plus, the men's haircut I got was absolutely perfect. Highly recommended for busy professionals!",
-      avatar: "R"
+      text: "The spa treatment felt like a mini vacation. The men's haircut I got was absolutely perfect. Highly recommended for busy professionals!",
     },
     {
       name: "Deepa Nair",
       role: "College Student",
       rating: 5,
-      text: "As a student, I appreciate their affordable pricing without compromising on quality. The stylists really listen to what you want and deliver amazing results every time.",
-      avatar: "D"
+      text: "As a student, I appreciate their affordable pricing without compromising on quality. The stylists really listen to what you want and deliver amazing results.",
     },
     {
       name: "Vikram Singh",
       role: "IT Professional",
       rating: 5,
-      text: "The convenience of online booking and their flexible hours make it perfect for my busy schedule. Always leave feeling refreshed and looking sharp for meetings.",
-      avatar: "V"
+      text: "The convenience of online booking and their flexible hours make it perfect for my busy schedule. Always leave feeling refreshed and looking sharp.",
     },
     {
       name: "Ananya Reddy",
       role: "HR Manager",
       rating: 5,
-      text: "Their bridal packages are exceptional! The team made me feel so special on my wedding day. The makeup lasted all day and the hairstyle was exactly what I wanted.",
-      avatar: "A"
+      text: "Their bridal packages are exceptional! The team made me feel so special on my wedding day. The makeup and hairstyle were exactly what I wanted.",
     }
   ]
 
@@ -53,96 +47,80 @@ const Testimonials: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: "easeOut"
       }
     }
   }
 
   return (
-    <section id="testimonials" className="py-20 bg-slate-900">
+    // Updated bg-primary to bg-slate-900 and text-primary-foreground to text-slate-100
+    <section id="testimonials" className="py-20 bg-slate-900 text-slate-100">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <motion.div
-            className="inline-flex items-center space-x-2 bg-gold-500/20 rounded-full px-4 py-2 mb-4 border border-gold-500/30"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <Star size={16} className="text-gold-400" />
-            <span className="text-gold-300 text-sm font-medium tracking-wide">
-              CLIENT TESTIMONIALS
-            </span>
-          </motion.div>
-
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Don't just take our word for it. Here's what our valued clients have to say 
-            about their experiences at NOWMI OMR.
+          {/* Updated text-primary-foreground/80 to text-slate-300 */}
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+            Real stories from our valued clients who trust us with their style.
           </p>
         </motion.div>
 
         {/* Testimonials Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-gold-500/30 transition-all duration-500 group"
+              // Updated background and border colors
+              className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex flex-col"
               variants={itemVariants}
-              whileHover={{ y: -5, scale: 1.02 }}
             >
-              {/* Quote Icon */}
-              <div className="mb-4">
-                <Quote size={24} className="text-gold-500 opacity-50" />
-              </div>
-
-              {/* Rating */}
               <div className="flex items-center space-x-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
                     key={i}
                     size={16}
-                    className="text-gold-500 fill-current"
+                    // Updated text-accent to text-gold-500
+                    className="text-gold-500 fill-gold-500" 
                   />
                 ))}
               </div>
 
-              {/* Testimonial Text */}
-              <p className="text-slate-300 mb-6 leading-relaxed group-hover:text-slate-200 transition-colors">
-                "{testimonial.text}"
+              {/* Updated text colors */}
+              <p className="text-slate-200 mb-6 leading-relaxed flex-grow">
+                <Quote size={16} className="inline-block text-gold-500 mr-2" />
+                {testimonial.text}
               </p>
 
-              {/* Client Info */}
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                  {testimonial.avatar}
+              <div className="flex items-center space-x-4">
+                {/* Updated icon background and text */}
+                <div className="w-12 h-12 bg-gold-500 text-slate-900 rounded-full flex items-center justify-center">
+                  <User size={24} />
                 </div>
                 <div>
                   <h4 className="font-semibold text-white">{testimonial.name}</h4>
@@ -156,24 +134,25 @@ const Testimonials: React.FC = () => {
         {/* Overall Rating */}
         <motion.div
           className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gradient-to-r from-gold-500/10 to-purple-500/10 rounded-2xl p-8 border border-gold-500/20 max-w-2xl mx-auto">
-            <div className="flex items-center justify-center space-x-2 mb-4">
+          {/* Updated background and border colors */}
+          <div className="bg-slate-800 rounded-xl p-8 border border-slate-700 max-w-md mx-auto">
+            <div className="flex items-center justify-center space-x-1 mb-3">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  size={24}
-                  className="text-gold-500 fill-current"
+                  size={20}
+                  className="text-gold-500 fill-gold-500"
                 />
               ))}
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Rated 4.9/5 Stars</h3>
+            <h3 className="text-2xl font-bold text-white mb-1">Rated 4.9/5 Stars</h3>
             <p className="text-slate-300">
-              Based on 500+ reviews from our satisfied clients across Chennai
+              Based on 500+ reviews from our satisfied clients.
             </p>
           </div>
         </motion.div>
@@ -182,4 +161,4 @@ const Testimonials: React.FC = () => {
   )
 }
 
-export default Testimonials
+export default Testimonials;

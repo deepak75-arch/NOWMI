@@ -1,128 +1,117 @@
-import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Scissors, Menu, X } from 'lucide-react'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button.tsx';
+import nowmiLogo from '@/assets/nowmi-logo.jpg'; // Assuming your logo is here
 
 const Header: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
     }
+  };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const navItems = ['Home', 'Services', 'About', 'Testimonials', 'Contact']
+  const navItems = [
+    { id: 'services', label: 'Services' },
+    { id: 'about', label: 'About' },
+    { id: 'testimonials', label: 'Testimonials' },
+    { id: 'contact', label: 'Contact' },
+  ];
 
   return (
-    <motion.header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg' 
-          : 'bg-transparent'
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <motion.div
-            className="flex items-center space-x-3"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400 }}
-          >
-            <div className={`p-2 rounded-full ${
-              isScrolled ? 'bg-gold-500' : 'bg-white'
-            }`}>
-              <Scissors 
-                size={20} 
-                className={isScrolled ? 'text-slate-900' : 'text-slate-900'} 
-              />
-            </div>
-            <span className={`text-xl font-bold ${
-              isScrolled ? 'text-slate-900' : 'text-white'
-            }`}>
-              NOWMI OMR
-            </span>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className={`font-medium transition-colors ${
-                  isScrolled 
-                    ? 'text-slate-700 hover:text-gold-600' 
-                    : 'text-white hover:text-gold-300'
-                }`}
-                whileHover={{ y: -2 }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {item}
-              </motion.a>
-            ))}
-            <motion.button
-              className={`px-6 py-2 rounded-full font-semibold transition-all ${
-                isScrolled
-                  ? 'bg-gold-500 text-slate-900 hover:bg-gold-600'
-                  : 'bg-white text-slate-900 hover:bg-gold-500'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Book Now
-            </motion.button>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            className={`md:hidden p-2 ${
-              isScrolled ? 'text-slate-900' : 'text-white'
-            }`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <motion.nav
-          className={`md:hidden overflow-hidden ${
-            isMobileMenuOpen ? 'max-h-64' : 'max-h-0'
-          } transition-all duration-300`}
+    <header className="fixed top-0 left-0 right-0 bg-background/90 backdrop-blur-lg z-50 border-b border-border shadow-sm">
+      <nav className="container flex items-center justify-between h-20 mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="py-4 space-y-4">
-            {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className={`block font-medium transition-colors ${
-                  isScrolled 
-                    ? 'text-slate-700 hover:text-gold-600' 
-                    : 'text-white hover:text-gold-300'
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
-            <button className="w-full bg-gold-500 text-slate-900 py-2 rounded-full font-semibold hover:bg-gold-600 transition-colors">
-              Book Now
-            </button>
-          </div>
-        </motion.nav>
-      </div>
-    </motion.header>
-  )
-}
+          <a href="#hero" onClick={() => scrollToSection('hero')} className="cursor-pointer">
+            <img src={nowmiLogo} alt="NOWMI OMR Logo" className="h-9" />
+          </a>
+        </motion.div>
 
-export default Header
+        {/* Desktop Navigation */}
+        <motion.div
+          className="hidden md:flex items-center space-x-8"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="text-foreground hover:text-accent font-medium transition-colors"
+            >
+              {item.label}
+            </button>
+          ))}
+          <a href="https://wa.me/914412345678" target="_blank" rel="noopener noreferrer">
+            <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg hover:shadow-accent/30">
+              Book Now
+            </Button>
+          </a>
+        </motion.div>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMenuOpen(true)}
+            className="text-foreground hover:bg-muted"
+          >
+            <Menu className="h-6 w-6" />
+          </Button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <motion.div
+          className="fixed inset-0 bg-background z-50 p-6 md:hidden"
+          initial={{ opacity: 0, x: "100%" }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <div className="flex justify-between items-center mb-8">
+            <img src={nowmiLogo} alt="NOWMI OMR Logo" className="h-9" />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(false)}
+              className="text-foreground hover:bg-muted"
+            >
+              <X className="h-6 w-6" />
+            </Button>
+          </div>
+
+          <div className="flex flex-col space-y-4">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-left text-foreground hover:text-accent transition-colors py-2 text-lg font-medium"
+              >
+                {item.label}
+              </button>
+            ))}
+            <a href="https://wa.me/914412345678" target="_blank" rel="noopener noreferrer" className="mt-4">
+              <Button className="w-full text-lg py-6 bg-accent text-accent-foreground hover:bg-accent/90">
+                Book Now
+              </Button>
+            </a>
+          </div>
+        </motion.div>
+      )}
+    </header>
+  );
+};
+
+export default Header;

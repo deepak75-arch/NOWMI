@@ -1,47 +1,45 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import LuxuryLoader from './components/LuxuryLoader.tsx'
-import Header from './components/Header.tsx'
-import Hero from './components/Hero.tsx'
-import Services from './components/Services.tsx'
-import About from './components/About.tsx'
-import Testimonials from './components/Testimonials.tsx'
-import Contact from './components/Contact.tsx'
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import Header from './components/Header.tsx';
+import LuxuryLoader from './components/LuxuryLoader.tsx';
+import { Footer } from './components/Footer.tsx';
+import './App.css';
 
-function App() {
-  const [isLoading, setIsLoading] = useState(true)
+const Hero = lazy(() => import('./components/Hero.tsx'));
+const About = lazy(() => import('./components/About.tsx'));
+const Services = lazy(() => import('./components/Services.tsx'));
+const Testimonials = lazy(() => import('./components/Testimonials.tsx'));
+const Contact = lazy(() => import('./components/Contact.tsx'));
+
+const App: React.FC = () => {
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 4000)
+      setLoading(false);
+    }, 2000);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LuxuryLoader />;
+  }
 
   return (
-    <div className="min-h-screen bg-white">
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <LuxuryLoader key="loader" />
-        ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <Header />
-            <Hero />
-            <Services />
-            <About />
-            <Testimonials />
-            <Contact />
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="App">
+      <Header />
+      <main>
+        <Suspense fallback={<LuxuryLoader />}>
+          <Hero />
+          <About />
+          <Services />
+          <Testimonials />
+          <Contact />
+        </Suspense>
+      </main>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

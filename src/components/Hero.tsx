@@ -1,136 +1,109 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles } from 'lucide-react'
+// Hero.tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, MapPin, Phone, Clock } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
     <section 
       id="home" 
-      className="relative flex items-center justify-center min-h-[90vh] md:min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden py-20"
+      className="relative min-h-screen w-full overflow-hidden"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-gold-400 rounded-full"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              scale: 0,
-            }}
-            animate={{
-              scale: [0, 1, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 w-full h-full">
+        <img
+          src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+          alt="NOWMI OMR Salon Interior"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-primary/90"></div>
+      </div>
+      
+      {/* Top Bar with Contact Info */}
+      <div className="absolute top-0 left-0 right-0 z-20 bg-black/20 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between text-white/90 text-sm">
+          <div className="flex items-center space-x-4">
+            <a href="tel:+914412345678" className="flex items-center hover:text-accent transition-colors">
+              <Phone className="w-4 h-4 mr-1.5" />
+              <span>+91 44 1234 5678</span>
+            </a>
+            <a 
+              href="https://maps.google.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center hover:text-accent transition-colors"
+            >
+              <MapPin className="w-4 h-4 mr-1.5" />
+              <span>Tech Park Avenue, OMR, Sholinganallur</span>
+            </a>
+          </div>
+          <div className="hidden md:flex items-center">
+            <Clock className="w-4 h-4 mr-1.5" />
+            <span>Mon-Sat: 9 AM - 9 PM | Sun: 10 AM - 7 PM</span>
+          </div>
+        </div>
       </div>
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          {/* Premium Badge */}
+      {/* Main Content */}
+      <div className="relative z-10 w-full min-h-screen flex items-center justify-center p-4 pt-20">
+        <div className="w-full max-w-4xl mx-auto text-center">
           <motion.div
-            className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-8 border border-gold-500/30"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <Sparkles size={16} className="text-gold-400" />
-            <span className="text-gold-300 text-sm font-medium tracking-wide">
-              CHENNAI'S PREMIER GROOMING LOUNGE
-            </span>
-          </motion.div>
-
-          {/* Main Heading */}
-          <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          >
-            <span className="block">LUXURY</span>
-            <span className="block text-gold-400">GROOMING</span>
-            <span className="block">EXPERIENCE</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Where global salon expertise meets Chennai's warmth. 
-            Your premium destination for bespoke grooming in the heart of OMR.
-          </motion.p>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
+              Chennai's Premier Unisex <span className="text-accent">Grooming Lounge</span>
+            </h1>
+            
+            <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-8">
+              Where global salon expertise meets local warmth for the modern tech professional.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center justify-center h-12 px-8 bg-accent text-accent-foreground text-base font-bold rounded-full hover:bg-accent/90 transition-all shadow-lg"
+              >
+                <span>Book Appointment</span>
+                <ArrowRight className="ml-2" size={20} />
+              </motion.a>
+              
+              <motion.a
+                href="#services"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center justify-center h-12 px-8 bg-secondary text-secondary-foreground text-base font-bold rounded-full hover:bg-secondary/90 transition-all shadow-lg"
+              >
+                <span>Our Services</span>
+              </motion.a>
+            </div>
 
-          {/* CTA Buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-          >
-            <motion.button
-              className="group bg-gold-500 text-slate-900 px-8 py-4 rounded-full font-bold text-lg flex items-center space-x-3 hover:bg-gold-600 transition-all duration-300 shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span>BOOK YOUR APPOINTMENT</span>
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-
-            <motion.button
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-slate-900 transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              EXPLORE SERVICES
-            </motion.button>
+            <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto mt-16">
+              {[
+                { value: "500+", label: "Outlets Globally" },
+                { value: "Top 1%", label: "Expert Stylists" },
+                { value: "Premium", label: "Budget-Friendly" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + index * 0.15 }}
+                >
+                  <div className="font-display text-3xl font-bold text-accent mb-1">{stat.value}</div>
+                  <div className="text-white/80 text-sm font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.8 }}
-          >
-            <motion.div
-              className="w-6 h-10 border-2 border-white rounded-full flex justify-center"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <motion.div
-                className="w-1 h-3 bg-white rounded-full mt-2"
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Luxury Pattern Overlay */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-repeat" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50 L60 40 L70 50 L60 60 Z' fill='%23FFD700'/%3E%3C/svg%3E")`,
-          backgroundSize: '100px 100px'
-        }} />
+        </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
