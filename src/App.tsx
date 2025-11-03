@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header.tsx';
-import LuxuryLoader from './components/LuxuryLoader.tsx';
+import LoadingScreen from './components/LoadingScreen.tsx';
 import Footer from './components/Footer.tsx';
 import './App.css';
+import './index.css';
 
 // Ensure dark theme is applied to the root element
 if (!document.documentElement.classList.contains('dark')) {
@@ -16,25 +17,44 @@ const Testimonials = lazy(() => import('./components/Testimonials.tsx'));
 const Contact = lazy(() => import('./components/Contact.tsx'));
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [contentLoading, setContentLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    // Initial loading timeout (minimum time to show loading screen)
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
 
-    return () => clearTimeout(timer);
+    // Content loading simulation (can be replaced with actual API calls)
+    const contentTimer = setTimeout(() => {
+      setContentLoading(false);
+    }, 2500);
+
+    return () => {
+      clearTimeout(loadingTimer);
+      clearTimeout(contentTimer);
+    };
   }, []);
 
-  if (loading) {
-    return <LuxuryLoader />;
+  if (isLoading) {
+    return <LoadingScreen />;
   }
 
   return (
-    <div className="App min-h-screen bg-background text-foreground transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
       <Header />
-      <main>
-        <Suspense fallback={<LuxuryLoader />}>
+      <main className="flex-grow relative">
+        {contentLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center">
+            <div className="loading-logo"></div>
+          </div>
+        )}
+        <Suspense fallback={
+          <div className="w-full h-screen flex items-center justify-center">
+            <div className="loading-logo"></div>
+          </div>
+        }>
           <Hero />
           <About />
           <Services />
