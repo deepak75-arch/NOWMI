@@ -1,8 +1,13 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header.tsx';
 import LuxuryLoader from './components/LuxuryLoader.tsx';
-import { Footer } from './components/Footer.tsx';
+import Footer from './components/Footer.tsx';
 import './App.css';
+
+// Ensure dark theme is applied to the root element
+if (!document.documentElement.classList.contains('dark')) {
+  document.documentElement.classList.add('dark');
+}
 
 const Hero = lazy(() => import('./components/Hero.tsx'));
 const About = lazy(() => import('./components/About.tsx'));
@@ -26,7 +31,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-background text-foreground transition-colors duration-300">
       <Header />
       <main>
         <Suspense fallback={<LuxuryLoader />}>

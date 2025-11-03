@@ -1,8 +1,13 @@
+/* 
+  App-specific styles that extend the base styles from index.css
+  Most styling should be handled by Tailwind CSS and the theme variables
+*/
+
 /* Base styles */
 :root {
-   
   --header-height: 80px;
-  --section-padding: 4rem 1rem;
+  --section-padding: 4rem 1.5rem;
+  --max-width: 1440px;
 }
 
 * {
@@ -16,8 +21,10 @@ body {
   font-family: theme('fontFamily.sans');
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #333;
+  color: hsl(var(--foreground));
   line-height: 1.6;
+  background-color: hsl(var(--background));
+  transition: background-color 0.3s, color 0.3s;
 }
 
 #root {
@@ -30,6 +37,7 @@ body {
   padding: 0;
   overflow-x: hidden;
   text-align: left;
+  background-color: hsl(var(--background));
 }
 
 /* Main content wrapper */
@@ -38,6 +46,7 @@ main {
   width: 100%;
   margin: 0 auto;
   padding-top: var(--header-height);
+  background-color: hsl(var(--background));
 }
 
 /* Section styles */
@@ -46,6 +55,8 @@ section {
   max-width: var(--max-width);
   margin: 0 auto;
   width: 100%;
+  background-color: hsl(var(--background));
+  transition: background-color 0.3s;
 }
 
 /* Utility classes */
@@ -53,7 +64,7 @@ section {
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 .section-title {
@@ -62,7 +73,7 @@ section {
   font-weight: 700;
   margin-bottom: 2rem;
   text-align: center;
-  color: #1a1a1a;
+  color: hsl(var(--primary));
   position: relative;
   padding-bottom: 1rem;
 }
@@ -80,13 +91,40 @@ section {
 }
 
 /* Responsive adjustments */
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 3.5rem 1.25rem;
+  }
+}
+
 @media (max-width: 768px) {
   :root {
-    --section-padding: 3rem 1rem;
+    --section-padding: 2.5rem 1rem;
+    --header-height: 70px;
   }
   
   .section-title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
   }
+}
+
+/* Ensure proper contrast and readability */
+a, button, .btn {
+  transition: all 0.2s ease;
+}
+
+a:hover, button:hover {
+  opacity: 0.9;
+}
+
+/* Focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for theme switching */
+*, *::before, *::after {
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }

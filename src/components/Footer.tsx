@@ -1,69 +1,117 @@
 import React from 'react';
-import { Mail, MapPin, Phone } from 'lucide-react';
-import nowmiLogo from '@/assets/nowmi-logo.jpg'; // Import the logo
+import { Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
+import NowmiLogo from '@/assets/nowmi-logo.jpg'; // Corrected import path
+import { motion } from 'framer-motion';
 
-export const Footer: React.FC = () => {
+const Footer: React.FC = () => {
+  const socialLinks = [
+    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+  ];
+
+  const footerSections = [
+    {
+      title: 'Services',
+      links: [
+        { name: 'Core Grooming', href: '#services' },
+        { name: 'Style & Treatments', href: '#services' },
+        { name: 'Skin & Nail Care', href: '#services' },
+        { name: 'Premium Packages', href: '#services' },
+      ],
+    },
+    {
+      title: 'Company',
+      links: [
+        { name: 'About Us', href: '#about' },
+        { name: 'Testimonials', href: '#testimonials' },
+        { name: 'Contact', href: '#contact' },
+        { name: 'Franchise', href: '#' },
+      ],
+    },
+    {
+      title: 'Legal',
+      links: [
+        { name: 'Privacy Policy', href: '#' },
+        { name: 'Terms of Service', href: '#' },
+        { name: 'Cookie Policy', href: '#' },
+      ],
+    },
+  ];
+
   return (
-    <footer className="bg-secondary border-t border-border mt-20">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          
-          {/* Brand Info */}
-          <div className="md:col-span-1">
-            <img src={nowmiLogo} alt="NOWMI OMR Logo" className="h-9 mb-4" />
-            <p className="text-sm text-muted-foreground mb-4">
-              Chennai's Premier Unisex Grooming Lounge. Your Growth, Our Expertise.
+    <footer className="w-full bg-primary text-white font-display">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Logo and Social */}
+          <motion.div 
+            className="md:col-span-2 lg:col-span-1"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <a href="#home" className="inline-flex items-center space-x-3 mb-6">
+              <img src={NowmiLogo} alt="NOWMI OMR Logo" className="h-10 w-10 rounded-full object-cover" />
+              <span className="text-2xl font-bold text-white">NOWMI OMR</span>
+            </a>
+            <p className="text-white/80 text-sm mb-6 leading-relaxed">
+              Chennai's premier men's salon, delivering affordable expert grooming for tech professionals.
             </p>
-            {/* Social media links can be added here */}
-          </div>
+            <div className="flex space-x-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full text-accent hover:bg-accent hover:text-primary transition-colors"
+                >
+                  <social.icon size={20} />
+                  <span className="sr-only">{social.label}</span>
+                </a>
+              ))}
+            </div>
+          </motion.div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#services" className="text-muted-foreground hover:text-accent transition-colors">Services</a></li>
-              <li><a href="#about" className="text-muted-foreground hover:text-accent transition-colors">About Us</a></li>
-              <li><a href="#testimonials" className="text-muted-foreground hover:text-accent transition-colors">Testimonials</a></li>
-              <li><a href="#contact" className="text-muted-foreground hover:text-accent transition-colors">Contact</a></li>
-            </ul>
-          </div>
-
-          {/* Core Services */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Services</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Haircuts & Styling (Unisex)</li>
-              <li>Skin & Facial Treatments</li>
-              <li>Men's Grooming</li>
-              <li>Spa & Wellness</li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Contact</h3>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                <span>OMR, Sholinganallur, Chennai - 600119</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-accent flex-shrink-0" />
-                <span>+91-44-1234-5678 (WhatsApp)</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-accent flex-shrink-0" />
-                <span>omr@nowmi.in</span>
-              </li>
-            </ul>
-          </div>
-
+          {/* Footer Links */}
+          {footerSections.map((section, index) => (
+            <motion.div 
+              key={section.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 * (index + 1), ease: "easeOut" }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-lg font-bold text-accent mb-6 uppercase tracking-wider">{section.title}</h3>
+              <ul className="space-y-4">
+                {section.links.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      className="text-white/80 hover:text-white transition-colors text-sm"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
+      </div>
 
-        <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 NOWMI OMR. All rights reserved. India's #1 Affordable Salon Franchise.</p>
+      {/* Bottom Bar */}
+      <div className="bg-background-dark/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-white/60">
+          <p>&copy; {new Date().getFullYear()} NOWMI OMR. All Rights Reserved. Your Growth, Our Expertise.</p>
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;
+
+
